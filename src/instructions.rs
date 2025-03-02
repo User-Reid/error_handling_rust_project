@@ -1,6 +1,6 @@
 /*
 Define a `write_to_file` function. The function
-should ask the user the following questions:
+should ask the user the following questions:✅
  
 What file would you like to write to?
 What would you like to write to the file?
