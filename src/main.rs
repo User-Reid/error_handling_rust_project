@@ -1,22 +1,25 @@
-use std::io::stdin;
+use std::io;
 use std::fs;
 use std::process::exit;
 
-fn write_to_file() {
-    let mut x: String = String::new();
-    let mut y: String = String::new();
-    println!("What file would you like to write to?");
-    stdin().read_line(&mut x)?;
-    print!("What would you like to write to the file?");
-    stdin().read_line(&mut y)?;
+fn write_to_file() -> io::Result<String> {
+    let input = io::stdin();
 
-    fs::write(x, y)?;
+    println!("What file would you like to write to?");
+    let mut x: String = String::new();
+    input.read_line(&mut x)?;
+
+    print!("What would you like to write to the file?");
+    let mut y: String = String::new();
+    input.read_line(&mut y)?;
+
+    fs::write(x.trim(), y.trim())?;
 
     Ok(x)
 }
 
 fn main() {
-    let x = match write_to_file() {
+    match write_to_file() {
         Ok(some) => println!("Successfully wrote to the file {some}"),
         Err(error) => {
             eprintln!("There was an error: {error}");
